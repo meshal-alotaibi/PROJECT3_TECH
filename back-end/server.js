@@ -1,100 +1,53 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
+// const Product = require("./models/product.js");
+// const cors = require('cors');
+// Require Route Files
+const productRouter = require('./routes/products');
+const userRouter = require('./routes/users');
 
-
-console.log(favFood);
-
-const {  Product } = require('./models/product.js');
-app.use(express.json());
-
+const db_url = require('./db');
 
 /* ============================================== */
-// to can see the body from req instead of undefined
-app.use(express.json());
-
-mongoose.connect('mongodb://localhost:27017/mongooseAssociationsInClass', {
-mongoose.connect('mongodb://localhost:27017/products', {
-
-  useNewUrlParser: true,
-});
+// Establish Database Connection
+mongoose.connect(db_url, { useNewUrlParser: true });
 mongoose.connection.once('open', () => {
-  console.log('DB IS CONNECTED :)');
-});
-/* ============================================== */
-
-app.get('/', (req, res) => {
-  console.log('GET /');
-  res.json('SERVER IS WORKING :P');
+  console.log('Connected to Mongo');
 });
 
-
-//MESHAL: write the code for app.get (to get all the products) 
-
-
-//get all prouct 
-app.get('/product', (req, res) => {
-    console.log('GET /product');
-    Product.find({}, function (err, data) {
-      res.json(data);
-    });
-  });
-
-//another app.get (to get ONE product only by ID)
-
-app.get('/getById', (req, res) => {
-    console.log(req.query.id);
-    console.log('GET /getById');
-    Product.findById(req.query.id, function (err, result) {
-      if (err) {
-        res.send(err);
-
+// Instantiate Express Application Object
+const app = express();
 
 /* ============================================== */
 
-app.post('/api/product', (req, res) => {
-  console.log('POST /product');
-  console.log('BODY: ', req.body);
-
-Product.create(req.body, (err, newProduct) => {
-    if (err) {
-      console.log('ERR: ', err);
-    } else {
-       console.log(newProduct)
-      res.json(newProduct);
-    }
-  });
+app.get("/", (req, res) => {
+  console.log("GET /");
+  res.json("WORKING FROM SEVER.JS");
 });
 
+// Add `bodyParser` middleware which will parse JSON requests
+// into JS objects before they reach the route files.
+//
+// The method `.use` sets up middleware for the Express application
+app.use(express.json());
 
-/* ============================================== */
+const reactPort = 3000;
+// Set CORS headers on response from this API using the `cors` NPM package.
+// app.use(
+//   cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` })
+// );
 
+/*** Routes ***/
 
+// Mount imported Routers
+app.use(productRouter);
+// app.use(userRouter);
 
-app.delete('/deletePro/', (req, res) => {
-
-  console.log('product ID: ', req.body.productId);
-
-  Product.findById(req.body.productId , (err, foundproduct) => {
-    console.log('FOUND USER: ', foundproduct);
-    foundproduct._id(req.body.productId).remove();
-    foundproduct.save((err, result) => {
-      if (err) {
-        console.log('ERR: ', err);
-
-      } else {
-        res.json(result);
-      }
-    });
-  });
-
-});
 
 
 /* ============================================== */
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log('SERVER IS WORKING ON http://localhost:' + PORT);
+  console.log("SERVER IS WORKING ON http://localhost:" + PORT);
 });
-
