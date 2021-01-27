@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 // Instantiate a Router (mini app that only handles routes)
 const router = express.Router();
-const Product = require('../models/product')
+
+const {User , Order} =require('../models/user')
 /* ============================================== */
 // to can see the body from req instead of undefined
 router.use(express.json());
@@ -14,25 +15,25 @@ mongoose.connection.once("open", () => {
 });
 /* ============================================== */
 
-router.get("/", (req, res) => {
+router.get("/testUsers", (req, res) => {
   console.log("GET /");
-  res.json("SERVER IS WORKING :P");
+  res.json("SERVER IS WORKING from users.js");
 });
 
-//MESHAL: write the code for app.get (to get all the products)
-//get all prouct
-router.get("/product", (req, res) => {
-  console.log("GET /product");
-  Product.find({}, function (err, data) {
+
+//MHMD
+router.get("/user", (req, res) => {
+  console.log("GET /user");
+  User.find({}, function (err, data) {
     res.json(data);
   });
 });
 
-//another app.get (to get ONE product only by ID)
-router.get("/ProductById", (req, res) => {
+//another app.get (to get ONE user only by ID)
+router.get("/userById", (req, res) => {
   console.log(req.query.id);
   console.log("GET /getById");
-  Product.findById(req.query.id, function (err, result) {
+  User.findById(req.query.id, function (err, result) {
     if (err) {
       console.log("ERR: ", err);
     } else {
@@ -42,51 +43,48 @@ router.get("/ProductById", (req, res) => {
   });
 });
 
+
 /* ============================================== */
 //NAJD
-router.post("/product", (req, res) => {
-  console.log("POST /product");
+router.post("/user", (req, res) => {
+  console.log("POST /User");
   console.log("BODY: ", req.body);
 
-  Product.create(req.body, (err, newProduct) => {
+  User.create(req.body, (err, newUser) => {
     if (err) {
       console.log("ERR: ", err);
     } else {
-      console.log(newProduct);
-      res.json(newProduct);
+      console.log(newUser);
+      res.json(newUser);
     }
   });
 });
 
+/* create order for user*/
+router.post('/user/order', (req, res) => {
+  // console.log('name: ', req.body.name);
+  // console.log('User ID: ', req.body.userId);
 
-/* ============================================== */
-//MHMD
+  const newOrder = new Order({ 
+    total: req.body.total,
+    date: req.body.date,
+    products_ID: req.body.products_ID,
+   });
 
-router.put('/product/:id', (req, res) => {
+  User.findById(req.body.userId, (err, foundUser) => {
+    console.log('FOUND USER: ', foundUser);
+    foundUser.purchased.push(newOrder);
 
-  Product.findOneAndUpdate({ _id: req.params.id }, req.body, (err, result) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
+    foundUser.save((err, result) => {
+      if (err) {
+        console.log('ERR: ', err);
+      } else {
+        res.json(result);
+      }
+    });
   });
 });
 
-
-/* ============================================== */
-//RAGHAD
-router.delete('/product/:id', (req, res) => {
-  console.log('PARAMS:', req.params);
-  // mongoose.Types.ObjectId ('4ed3ede8844f0f351100000c')
-  Product.findOneAndDelete({ _id: req.params.id }, (err, result) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
-  });
-});
 
 /* ============================================== */
 
