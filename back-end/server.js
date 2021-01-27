@@ -1,15 +1,21 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const { favFood, User, Tweet } = require('./models/user.js');
-// const {a,b}=obj
+
 
 console.log(favFood);
+
+const {  Product } = require('./models/product.js');
+app.use(express.json());
+
+
 /* ============================================== */
 // to can see the body from req instead of undefined
 app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/mongooseAssociationsInClass', {
+mongoose.connect('mongodb://localhost:27017/products', {
+
   useNewUrlParser: true,
 });
 mongoose.connection.once('open', () => {
@@ -21,6 +27,7 @@ app.get('/', (req, res) => {
   console.log('GET /');
   res.json('SERVER IS WORKING :P');
 });
+
 
 //MESHAL: write the code for app.get (to get all the products) 
 
@@ -41,11 +48,47 @@ app.get('/getById', (req, res) => {
     Product.findById(req.query.id, function (err, result) {
       if (err) {
         res.send(err);
+
+
+/* ============================================== */
+
+app.post('/api/product', (req, res) => {
+  console.log('POST /product');
+  console.log('BODY: ', req.body);
+
+Product.create(req.body, (err, newProduct) => {
+    if (err) {
+      console.log('ERR: ', err);
+    } else {
+       console.log(newProduct)
+      res.json(newProduct);
+    }
+  });
+});
+
+
+/* ============================================== */
+
+
+
+app.delete('/deletePro/', (req, res) => {
+
+  console.log('product ID: ', req.body.productId);
+
+  Product.findById(req.body.productId , (err, foundproduct) => {
+    console.log('FOUND USER: ', foundproduct);
+    foundproduct._id(req.body.productId).remove();
+    foundproduct.save((err, result) => {
+      if (err) {
+        console.log('ERR: ', err);
+
       } else {
         res.json(result);
       }
     });
   });
+
+});
 
 
 /* ============================================== */
@@ -55,6 +98,3 @@ app.listen(PORT, () => {
   console.log('SERVER IS WORKING ON http://localhost:' + PORT);
 });
 
-console.log(1);
-
-var a_2 = 7;
