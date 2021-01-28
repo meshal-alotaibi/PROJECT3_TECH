@@ -60,7 +60,7 @@ router.post("/user", (req, res) => {
   });
 });
 
-/* create order for user*/
+//create order for user
 router.post('/user/order', (req, res) => {
   // console.log('name: ', req.body.name);
   // console.log('User ID: ', req.body.userId);
@@ -86,6 +86,50 @@ router.post('/user/order', (req, res) => {
 });
 
 
+
 /* ============================================== */
+//Meshal
+router.put('/user/:id', (req, res) => {
+
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+
+/* ============================================== */
+//RAGHAD 
+// ######### delete user by ID ###########
+router.delete('/user/:id', (req, res) => {
+  console.log('PARAMS:', req.params.id);
+  // mongoose.Types.ObjectId ('4ed3ede8844f0f351100000c')
+  User.findOneAndDelete({ _id: req.params.id}, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+// ######### delete user'order by ID ###########
+// router.delete('/user/order', (req, res) => {
+//   User.findById(req.query.userId, (err, foundUser) => {
+//     console.log('FOUND USER: ', foundUser);
+//     foundUser.purchased.id(req.query.orderId).remove();
+//     foundUser.save((err, result) => {
+//       if (err) {
+//         console.log('ERR: ', err);
+//       } else {
+//         res.json(result);
+//       }
+//     });
+//   });
+// });
 
 module.exports=router; 

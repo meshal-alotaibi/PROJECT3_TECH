@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   total: {type: Number},
-  date: {type: String},
+  // date: {type: String},
   products_ID: {type: String},
+},{
+  timestamps: true,
 });
 
 
 const userSchema = new mongoose.Schema({
   name:{type : String , required:true , trim: true},
   password:{type:String, require:true },
-  email:{type: String , require:true },
+  email:{type: String , require:true , unique:true} ,
   isAdmin:{type:Boolean , required:true, default:false },
   Address:{
     country: String,
@@ -34,3 +36,6 @@ module.exports = {
   // Order,
   Order: Order,
 };
+
+
+

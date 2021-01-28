@@ -15,7 +15,7 @@ mongoose.connection.once("open", () => {
 /* ============================================== */
 
 router.get("/testProducts", (req, res) => {
-  console.log("GET /");
+  console.log("GET from route prod");
   res.json("SERVER IS WORKING from products/js");
 });
 
@@ -79,7 +79,7 @@ router.put('/product/:id', (req, res) => {
 router.delete('/product/:id', (req, res) => {
   console.log('PARAMS:', req.params);
   // mongoose.Types.ObjectId ('4ed3ede8844f0f351100000c')
-  Product.findOneAndDelete({ _id: req.params.id }, (err, result) => {
+  Product.findOneAndDelete({ _id: req.params.id}, (err, result) => {
     if (err) {
       res.json(err);
     } else {

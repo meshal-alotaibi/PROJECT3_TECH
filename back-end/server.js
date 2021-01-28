@@ -20,10 +20,10 @@ const app = express();
 
 /* ============================================== */
 
-app.get("/", (req, res) => {
-  console.log("GET /");
-  res.json("WORKING FROM SEVER.JS");
-});
+// app.get("/", (req, res) => {
+//   console.log("GET /");
+//   res.json("WORKING FROM SEVER.JS");
+// });
 
 // Add `bodyParser` middleware which will parse JSON requests
 // into JS objects before they reach the route files.
@@ -47,7 +47,7 @@ app.use(userRouter);
 
 /* ============================================== */
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("SERVER IS WORKING ON http://localhost:" + PORT);
 });
