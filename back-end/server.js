@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 // const Product = require("./models/product.js");
 const cors = require('cors');
 // Require Route Files
+const bodyParser=require("body-parser");
 const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
 
@@ -17,7 +18,8 @@ mongoose.connection.once('open', () => {
 
 // Instantiate Express Application Object
 const app = express();
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
 /* ============================================== */
 
 // app.get("/", (req, res) => {
@@ -44,6 +46,13 @@ app.use(productRouter);
 app.use(userRouter);
 
 
+// app.use(function(req,res,next){
+//   res.header("Access-Cotrol-Allow-Origin","*");
+//   res.header("Access-Cotrol-Allow-Header","Origin ,X-Requested-With" ,
+//   "Content-Type", "Accept");
+//   res.header("Access-Cotrol-Allow-Methods",'PUT ,GET ,DELETE ,OPTIONS');
+//   next();
+//   });
 
 /* ============================================== */
 
@@ -51,3 +60,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("SERVER IS WORKING ON http://localhost:" + PORT);
 });
+
+
