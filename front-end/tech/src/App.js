@@ -12,6 +12,12 @@ import Login from "./components/Login";
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
 import Search from "./components/Search";
+<<<<<<< HEAD
+=======
+
+import AddProd from "./components/AddProd";
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
 
 export default class App extends Component {
   constructor(props) {
@@ -19,7 +25,17 @@ export default class App extends Component {
 
     this.state = {
       products: [],
+<<<<<<< HEAD
       searchValue: ""
+=======
+
+      searchValue: "",
+
+      covers:[],
+      powerbanks:[],
+      cables:[]
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,20 +46,37 @@ export default class App extends Component {
     this.setState({ products: newProd });
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
   //search meshal
   handleChange(event) {
     this.setState({ searchValue: event.target.value });
   }
   
+<<<<<<< HEAD
+=======
+  funcSetCvr = (newCvr) => {
+    this.setState({ covers: newCvr });
+  };
+
+  funcSetPowerBank = (newPwr) => {
+    this.setState({ powerbanks: newPwr });
+  };
+
+  funcSetCable = (newCbl) => {
+    this.setState({ cables: newCbl });
+  };
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
 
   render() {
     console.log(this.state.products);
 
     return (
       <Router>
-        {/* //////////////////prod branch */}
         <div className="">
-          {/* /////////////////HALF */}
           <div>
             <Navbar bg="light" variant="light" sticky="top">
               <Navbar.Brand href="#home">TECH</Navbar.Brand>
@@ -63,13 +96,23 @@ export default class App extends Component {
                 <Nav.Link as={Link} to="/cables">
                   Cables
                 </Nav.Link>
+<<<<<<< HEAD
                 {/* ######################## profile ##################### */}
+=======
+
+                {/* ######################## profile ##################### */}
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
                 <Nav.Link as={Link} to="/profile">
                   My Account
+                </Nav.Link>
+                <Nav.Link as={Link} to="/addprod">
+                  ADD PROD
                 </Nav.Link>
               </Nav>
 
               <Form inline>
+              
                 <FormControl
                   type="text"
                   placeholder="search"
@@ -104,6 +147,7 @@ export default class App extends Component {
                   )}
                 ></Route>
 
+<<<<<<< HEAD
                 <Route
                   exact
                   path="/covers"
@@ -133,6 +177,53 @@ export default class App extends Component {
 
                 <Route path="/login" component={() => <Login />}></Route>
                 {/* <Route path="/Search" component={() => <Search />}></Route> */}
+=======
+               
+
+                <Route path="/search" render={(props) => <Search {...props} search={this.state.products}/>}></Route>
+
+                
+                {/* <Route path="/Search" component={() => <Search />}></Route> */}
+
+              <Route
+                exact
+                path="/covers"
+                render={(props) => (
+                  <Cover {...props} covers={this.state.covers} setCvr={this.funcSetCvr} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/powerbanks"
+                render={(props) => (
+                  <PowerBanks {...props} powerBanks={this.state.powerbanks} setPowerbank={this.funcSetPowerBank}/>
+                )}
+              />
+              <Route
+                exact
+                path="/cables"
+                render={(props) => (
+                  <Cables {...props} cables={this.state.cables} setCables={this.funcSetCable} />
+                )}
+              />
+              {/* ######################## profile ##################### */}
+               <Route
+                exact
+                path="/profile"
+                component={Profile}
+              />
+              <Route path="/login" component={() => <Login />}></Route>
+
+              <Route
+                exact
+                path="/addprod"
+                render={() => (
+                  <AddProd />
+                )}
+              />
+
+>>>>>>> 5ef5df97e29482a2cb53d1463faa4d1e644e3569
               </div>
             </Switch>
             {/* /////////////MASTER */}
