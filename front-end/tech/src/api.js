@@ -9,7 +9,15 @@ const getAllProducts = () => {
 };
 
 const getAllCovers = () => {
-  return axios.get(`${API_URL}/product/covers`);
+  return axios.get(`${API_URL}/covers`);
+};
+
+const getAllPowerBanks = () => {
+  return axios.get(`${API_URL}/powerbanks`);
+};
+
+const getAllCables = () => {
+  return axios.get(`${API_URL}/cables`);
 };
 
 // Delete products by ID
@@ -17,4 +25,21 @@ const getAllUsers = (id) => {
   return axios.get(`${API_URL}/user`);
 }
 
-export { getAllProducts, getAllUsers ,getAllCovers};
+
+
+//////////////////NAJD
+const login=()=>{
+  return axios.post(`${API_URL}/login`)
+}
+
+// ###################### EditUser
+const EditUser = (id,info) => {
+  console.log(info)
+  return axios.put(`${API_URL}/user/${id}`, info);
+}
+/////////////////END NAJD
+
+
+
+export { getAllProducts, getAllUsers ,getAllCovers,getAllPowerBanks,getAllCables, EditUser};
+

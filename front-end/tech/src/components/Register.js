@@ -1,49 +1,55 @@
 import React, { Component } from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import axios from 'axios';
-//import login from '../api'
-
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      Name:"",
       email: "",
       password: "",
     };
   }
 
 
-  // submitLogin = () => {
-  //   console.log("INSIDE THE SUBMITLOGIN");
-  //   //if this.state.password == the password that this.state.email have => SUCCESS
-  // }
+//   submitLogin = () => {
+//     console.log("INSIDE THE SUBMITLOGIN");
+//     //if this.state.password == the password that this.state.email have => SUCCESS
+//   }
 
-  login=(e)=>{
-    e.preventDefault();
-    console.log("EENTEREREREREAED");
-    let req={
-      Email:this.state.email , 
-      pass:this.state.password 
-    }
-    axios.post('http://localhost:3000/login',req)
-    .then(resp=>{
-      alert(resp.data.message);
-    })
-    .catch(err=> {
-      console.log(err)
-    })
-  }
-
-  funcccc = () =>{
-    console.log("aaaaaaaaaa");
-  }
 
   render() {
-    
+    register=(e)=>{
+      e.preventDefulte();
+      let req={
+        name:Name,
+        Email:email , 
+        pass:password 
+      }
+      axios.post('htpp://localhost:3000/register',req)
+      .then(resp=>{
+        alert(resp.data.message);
+      })
+      .catch(err=> {
+        console.log(err)
+      })
+
+    }
     return (
       <div>
         <Form >
+        <Form.Group controlId="formBasicEmail">
+            <Form.Label>Your full name </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your name"
+              onChange={(e) => {
+                console.log("CHANGE: ", e.target.value);
+                this.setState({ name: e.target.value });
+              }}
+            />
+          </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -67,9 +73,11 @@ export default class Login extends Component {
               }}
             />
           </Form.Group>
+          <Button variant="primary" type="submit" onSubmit={(e)=>{register(e)}}
+          >
+            Submit
+          </Button>
         </Form>
-        <Button onClick={(e)=>{this.login(e)}}>Submit</Button>
-
       </div>
     );
   }
