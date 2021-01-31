@@ -29,9 +29,8 @@ export default class Search extends Component {
       <div>
         <h1 class="display-4">search prodcut </h1>
         <CardGroup> {searchProdcut} </CardGroup>
-
-        <h1> hi</h1>
       </div>
     );
   }
 }
+

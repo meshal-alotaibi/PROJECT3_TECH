@@ -23,9 +23,11 @@ export default class App extends Component {
     this.state = {
       products: [],
       searchValue: "",
+
+      isLoggedIn:false,
       covers:[],
       powerbanks:[],
-      cables:[],
+      cables:[]
 
     };
 
@@ -36,6 +38,7 @@ export default class App extends Component {
   funcSetProducts = (newProd) => {
     this.setState({ products: newProd });
   };
+
 
   //search meshal
   handleChange(event) {
@@ -101,7 +104,7 @@ export default class App extends Component {
                     onChange={this.handleChange}
                 />
                <Link to="Search">
-                <Button variant="outline-primary" className="mr-2"  >
+                <Button variant="outline-primary" className="mr-2" onChange={this.handleChange} >
                   Search
                 </Button>
                 </Link>
@@ -162,7 +165,7 @@ export default class App extends Component {
                 path="/profile"
                 component={Profile}
               />
-              <Route path="/login" component={() => <Login />}></Route>
+              <Route path="/login" component={() => <Login isLoggedIn={this.state.isLoggedIn} />}></Route>
 
               <Route
                 exact
