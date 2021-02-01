@@ -26,7 +26,6 @@ const getAllUsers = (id) => {
 }
 
 
-
 //////////////////NAJD
 
 const login=(req)=>{
@@ -35,15 +34,21 @@ const login=(req)=>{
     password:req.password
   })
 }
+const registeration=(req)=>{
+  return axios.post(`${API_URL}/register`,req)
+}
 // ###################### EditUser
 const EditUser = (id,info) => {
   console.log(info)
   return axios.put(`${API_URL}/user/${id}`, info);
 }
-/////////////////END NAJD
+
+// Add new product ###########
+const addProduct = (info) => {
+  return axios.post(`${API_URL}/product`,info);
+}
 
 
 
-
-export { getAllProducts, getAllUsers ,getAllCovers,getAllPowerBanks,getAllCables, EditUser,login };
+export { getAllProducts, getAllUsers ,getAllCovers,getAllPowerBanks,getAllCables,registeration, EditUser,login, addProduct};
 

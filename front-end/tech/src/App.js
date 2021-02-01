@@ -12,7 +12,7 @@ import Login from "./components/Login";
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
 import Search from "./components/Search";
-
+import Register from "./components/Register"
 import AddProd from "./components/AddProd";
 
 
@@ -22,7 +22,6 @@ export default class App extends Component {
 
     this.state = {
       products: [],
-
       searchValue: "",
       isLoggedIn:false,
       covers:[],
@@ -61,7 +60,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.products);
 
     return (
       <Router>
@@ -103,9 +101,8 @@ export default class App extends Component {
                   placeholder="search"
                   className="mr-sm-2"
                   value={this.state.searchValue}
-                    onChange={(eve)=>{
-                      this.handleChange(eve)
-                    }}
+                  onChange={this.handleChange}
+                    
                 />
                <Link to="Search">
                 <Button variant="outline-primary" className="mr-2">
@@ -133,10 +130,11 @@ export default class App extends Component {
                     />
                   )}
                 ></Route>
+                
 
                
 
-                <Route path="/search" render={(props) => <Search {...props} searchProduct={this.state.products}/>}></Route>
+                <Route path="/search" render={(props) => <Search {...props} searchProduct={this.state.products} searchValue={this.state.searchValue}/>}></Route>
 
                 
                 {/* <Route path="/Search" component={() => <Search />}></Route> */}
@@ -154,6 +152,13 @@ export default class App extends Component {
                 path="/powerbanks"
                 render={(props) => (
                   <PowerBanks {...props} powerBanks={this.state.powerbanks} setPowerbank={this.funcSetPowerBank}/>
+                )}
+              />
+              <Route
+                exact
+                path="/Register"
+                render={(props) => (
+                  <Register {...props}/>
                 )}
               />
               <Route
