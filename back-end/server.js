@@ -6,8 +6,10 @@ const cors = require('cors');
 const bodyParser=require("body-parser");
 const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
-
 const db_url = require('./db');
+
+// here for add image ##################
+// const fileUpload = require('express-fileupload');
 
 /* ============================================== */
 // Establish Database Connection
@@ -22,16 +24,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 /* ============================================== */
 
-// app.get("/", (req, res) => {
-//   console.log("GET /");
-//   res.json("WORKING FROM SEVER.JS");
-// });
+ app.get("/", (req, res) => {
+  console.log("GET /");
+  res.json("WORKING FROM SEVER.JS");
+ });
 
 // Add `bodyParser` middleware which will parse JSON requests
 // into JS objects before they reach the route files.
 //
 // The method `.use` sets up middleware for the Express application
 app.use(express.json());
+// here for add image ##################
+// app.use(fileUpload());
+
 
 const reactPort = 3000;
 // Set CORS headers on response from this API using the `cors` NPM package.
