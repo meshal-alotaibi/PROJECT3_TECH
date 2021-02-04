@@ -105,6 +105,9 @@ export default class App extends Component {
   };
 
   
+  editName = (name) => {
+    this.setState({name:name})
+  }
 
   onlogout() {
     const obj = getFromStorage("the_main_app");
@@ -253,9 +256,11 @@ orderInfo =(info)=>{
                 <Route exact path="/" render={() => <HomePage name={this.state.name}/>}></Route>
 
                 <Route
+                  exact
                   path="/allproducts"
                   render={() => (
                     <Products
+                      name={this.state.name}
                       prods={this.state.products}
                       isAdmin={this.state.isAdmin}
                       setProducts={this.funcSetProducts}
@@ -322,8 +327,9 @@ orderInfo =(info)=>{
 
 
                 {/* ######################## profile ##################### */}
-                <Route exact path="/profile" render={() => <Profile token={this.state.rtoken} order={this.state.order}/>}/>
+                <Route exact path="/profile" render={() => <Profile token={this.state.rtoken} editName={this.editName} order={this.state.order}/>}/>
                 <Route
+                exact
                   path="/login"
                   component={() => (
                     <Login

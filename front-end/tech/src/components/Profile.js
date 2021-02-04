@@ -23,7 +23,7 @@ export default class Profile extends Component {
   }
 
   EditProfile = () => {
-    this.setState({ showComponent: true });
+    this.setState({ showComponent: !this.state.showComponent });
     console.log(this.state.showComponent);
   };
   hide = () => {
@@ -98,27 +98,23 @@ let showOrder = []
     console.log("order cart", this.state.order)
 
     return (
-      <div>
+      <div className ="profile">
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Username: {this.state.name}</Form.Label>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <p>{this.state.email}</p>
+            <Form.Label>Email address: {this.state.email}</Form.Label>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
-            <h3>Address</h3>
+            <h3>Address: </h3>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Country</Form.Label>
-              <p>{this.state.country}</p>
+              <Form.Label>Country: {this.state.country}</Form.Label>
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>City</Form.Label>
-              <p>{this.state.city}</p>
+              <Form.Label>City: {this.state.city}</Form.Label>
             </Form.Group>
-            <Form.Label>House number</Form.Label>
-            <p>{this.state.HouseNumber}</p>
+            <Form.Label>House number: {this.state.HouseNumber}</Form.Label>
           </Form.Group>
           <Button onClick={this.EditProfile} class="btn btn-secondary">
             Edit
@@ -126,10 +122,11 @@ let showOrder = []
         
         </Form>
         {this.state.showComponent ? (
-          <EditProfile hide={this.hide} EditInfo={this.EditInfo} token={this.props.token}/>
-        ) : null}
 
+          <EditProfile hide={this.hide} EditInfo={this.EditInfo} token={this.props.token} editName={this.props.editName}/>
+        ) : null }
         {showOrder}
+
       </div>
     );
   }
